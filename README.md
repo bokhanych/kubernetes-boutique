@@ -31,8 +31,17 @@ TODO:
  - [x] labels, taints
  - [x] application replicas
  - [x] application namespace
+ - [x] установка NFS сервиса на node1
  - [] мониторинг
  - [] CI\CD
  - [] логирование
- - [] установка NFS сервиса на node1
 
+**NFS шара:**
+```
+root@node1:~# bash nfs-share.sh
+```
+
+**Мониторинг:**
+```
+kubectl apply -f grafana-install.yaml
+```
