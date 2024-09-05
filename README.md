@@ -32,7 +32,7 @@ TODO:
  - [x] application replicas
  - [x] application namespace
  - [x] установка NFS сервиса на node1
- - [] мониторинг
+ - [x] мониторинг
  - [] CI\CD
  - [] логирование
 
