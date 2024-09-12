@@ -1,0 +1,2 @@
+kubectl taint nodes <node_name> node-role.kubernetes.io/control-plane:NoSchedule
+kubectl label nodes <node_name> node-role.kubernetes.io/worker=worker

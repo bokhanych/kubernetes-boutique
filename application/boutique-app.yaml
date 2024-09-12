@@ -1,6 +1,3 @@
-# kubectl create namespace onlineboutique
-# kubectl create -f boutique-app.yaml
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
