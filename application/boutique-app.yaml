@@ -173,7 +173,7 @@ metadata:
   labels:
     app: productcatalogservice
 spec:
-  
+  replicas: 2
   selector:
     matchLabels:
       app: productcatalogservice
@@ -419,7 +419,7 @@ metadata:
   labels:
     app: cartservice
 spec:
-  
+  replicas: 2
   selector:
     matchLabels:
       app: cartservice
@@ -722,7 +722,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  
+  replicas: 2
   selector:
     matchLabels:
       app: frontend
