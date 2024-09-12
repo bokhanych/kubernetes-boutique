@@ -43,5 +43,6 @@ root@node1:~# bash nfs-share.sh
 
 **Мониторинг:**
 ```
-kubectl apply -f grafana-install.yaml
+kubectl apply -f ./grafana/grafana-install.yaml
+kubectl create configmap grafana-dashboard-configmap --from-file=my-dashboard.json=/путь/к/файлу.json -n ваше-пространство-имен
 ```
