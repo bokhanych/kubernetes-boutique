@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name      : onlineboutique
+  namespace : argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: bokhanych-project
+  source:
+    repoURL       : 'git@github.com:bokhanych/kubernetes-boutique.git'
+    targetRevision: HEAD
+    path          : 'application'
+  destination:
+    name     : in-cluster
+    namespace: onlineboutique
+  sources: []
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

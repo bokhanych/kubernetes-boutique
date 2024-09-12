@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: bokhanych-project
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "bokhanych project"
+  sourceRepos:
+  - 'git@github.com:bokhanych/kubernetes-boutique.git'
+  destinations:
+  - namespace: 'onlineboutique'
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
