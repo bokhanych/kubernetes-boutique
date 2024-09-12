@@ -17,6 +17,15 @@ spec:
       labels:
         app: currencyservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: currencyservice
       terminationGracePeriodSeconds: 5
       securityContext:
@@ -97,6 +106,15 @@ spec:
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: loadgenerator
       terminationGracePeriodSeconds: 5
       restartPolicy: Always
@@ -182,6 +200,15 @@ spec:
       labels:
         app: productcatalogservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: productcatalogservice
       terminationGracePeriodSeconds: 5
       securityContext:
@@ -262,6 +289,15 @@ spec:
       labels:
         app: checkoutservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: checkoutservice
       securityContext:
         fsGroup: 1000
@@ -351,6 +387,15 @@ spec:
       labels:
         app: shippingservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: shippingservice
       securityContext:
         fsGroup: 1000
@@ -428,6 +473,15 @@ spec:
       labels:
         app: cartservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: cartservice
       terminationGracePeriodSeconds: 5
       securityContext:
@@ -505,6 +559,15 @@ spec:
       labels:
         app: redis-cart
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
@@ -576,6 +639,15 @@ spec:
       labels:
         app: emailservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: emailservice
       terminationGracePeriodSeconds: 5
       securityContext:
@@ -654,6 +726,15 @@ spec:
       labels:
         app: paymentservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: paymentservice
       terminationGracePeriodSeconds: 5
       securityContext:
@@ -733,6 +814,15 @@ spec:
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: frontend
       securityContext:
         fsGroup: 1000
@@ -867,6 +957,15 @@ spec:
       labels:
         app: recommendationservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: recommendationservice
       terminationGracePeriodSeconds: 5
       securityContext:
@@ -947,6 +1046,15 @@ spec:
       labels:
         app: adservice
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - worker
       serviceAccountName: adservice
       terminationGracePeriodSeconds: 5
       securityContext:
