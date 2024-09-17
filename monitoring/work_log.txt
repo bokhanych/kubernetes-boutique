@@ -1,0 +1,13 @@
+# Установка стека prometheus + grafana с дашбордами и алертами
+
+# Install
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+#helm pull prometheus-community/kube-prometheus-stack
+#tar zxf kube-prometheus-stack-62.7.0.tgz 
+#rm kube-prometheus-stack-62.7.0.tgz 
+#cp kube-prometheus-stack/values.yaml bokhanych-values.yaml
+helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f bokhanych-values.yaml --create-namespace --namespace monitoring
+
+# Update
+helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f bokhanych-values.yaml --create-namespace --namespace monitoring
