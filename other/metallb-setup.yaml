@@ -1,0 +1,23 @@
+# INSTALL: kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/manifests/metallb-native.yaml
+
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: main-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 116.203.59.201/32
+  # - 95.217.165.221/32
+  # - 65.21.2.203/32
+  # - 37.27.193.113/32
+  # - 65.109.5.75/32
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: main-l2ad
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - main-pool
