@@ -5,7 +5,9 @@ helm repo update
 #helm pull prometheus-community/kube-prometheus-stack --untar
 #cp kube-prometheus-stack/values.yaml bokhanych-values.yaml
 
-helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f bokhanych-values.yaml --create-namespace --namespace monitoring
+helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f monitoring/bokhanych-values.yaml --create-namespace --namespace monitoring
+
+# Creds: admin \ prom-operator
 
 # Update
-helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f bokhanych-values.yaml --create-namespace --namespace monitoring
+helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f monitoring/bokhanych-values.yaml --create-namespace --namespace monitoring
