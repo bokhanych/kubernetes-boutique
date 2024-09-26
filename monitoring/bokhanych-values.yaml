@@ -3821,7 +3821,7 @@ prometheus:
     ##
      volumeClaimTemplate:
        spec:
-         storageClassName: yc-network-hdd
+         storageClassName: hcloud-volumes
          accessModes: ["ReadWriteOnce"]
          resources:
            requests:
