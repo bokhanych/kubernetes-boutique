@@ -320,8 +320,8 @@ loki:
     s3:
       endpoint: https://storage.yandexcloud.net
       region: ru-central1-d
-      secretAccessKey: YCNgyLkgmtvcHqtatJxQDq9ASqeHyL5CEiyAnrXj
-      accessKeyId: YCAJEzslWCBhkve4zjz49UG6n
+      secretAccessKey: <CHANGEME>
+      accessKeyId: <CHANGEME>
       #signatureVersion: s3v4
       s3ForcePathStyle: true
       insecure: false
@@ -3090,7 +3090,7 @@ chunksCache:
   # -- Port of the chunks-cache service
   port: 11211
   # -- Amount of memory allocated to chunks-cache for object storage (in MB).
-  allocatedMemory: 8192
+  allocatedMemory: 4096
   # -- Maximum item memory for chunks-cache (in MB).
   maxItemMemory: 5
   # -- Maximum number of connections allowed

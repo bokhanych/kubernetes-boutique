@@ -2,6 +2,9 @@
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 
+# S3 secret
+kubectl apply -f loki-secret.yaml
+
 # LOKI install
 # helm pull grafana/loki --untar
 # cp loki/values.yaml loki-values.yaml
