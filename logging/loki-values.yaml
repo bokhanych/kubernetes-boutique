@@ -320,8 +320,8 @@ loki:
     s3:
       endpoint: https://storage.yandexcloud.net
       region: ru-central1-d
-      secretAccessKey: <CHANGEME>
-      accessKeyId: <CHANGEME>
+      secretAccessKey:
+      accessKeyId:
       #signatureVersion: s3v4
       s3ForcePathStyle: true
       insecure: false
