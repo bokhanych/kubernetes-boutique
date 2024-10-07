@@ -1,0 +1,2 @@
+# Install Kubernetes in Hetzner Cloud with Terraform, Kubespray, HCLOUD Controller Manager and Storage Driver
+Manual: https://www.youtube.com/watch?v=S424jkxtEf0

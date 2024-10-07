@@ -1,11 +1,13 @@
-# Install
+# Manual: https://www.youtube.com/watch?v=MAKMxl_Um3s
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 
+# LOKI install
 # helm pull grafana/loki --untar
-# cp loki/values.yaml bokhanych-values.yaml
+# cp loki/values.yaml loki-values.yaml
+helm upgrade --install loki grafana/loki -f loki-values.yaml --create-namespace --namespace logging
 
-helm install --values bokhanych-values.yaml loki --create-namespace --namespace=logging grafana/loki
-
-# Upgrade
-helm upgrade --install loki grafana/loki -f bokhanych-values.yaml --create-namespace --namespace logging
+# PROMTAIL install
+# helm pull grafana/promtail --untar
+# cp promtail/values.yaml promtail-values.yaml
+helm upgrade --install promtail grafana/promtail -f promtail-values.yaml --create-namespace --namespace logging

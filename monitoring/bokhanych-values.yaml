@@ -1024,15 +1024,15 @@ grafana:
 
   # # To make Grafana persistent (Using Statefulset)
   # #
-  # persistence:
-  #   enabled: true
-  #   type: sts
-  #   storageClassName: "storageClassName"
-  #   accessModes:
-  #     - ReadWriteOnce
-  #   size: 20Gi
-  #   finalizers:
-  #     - kubernetes.io/pvc-protection
+  persistence:
+    enabled: true
+    type: pvc
+    storageClassName: "hcloud-volumes"
+    accessModes:
+      - ReadWriteOnce
+    size: 20Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
 
   serviceAccount:
     create: true
@@ -1116,18 +1116,18 @@ grafana:
 
   ## Configure additional grafana datasources (passed through tpl)
   ## ref: http://docs.grafana.org/administration/provisioning/#datasources
-  additionalDataSources: []
-  # - name: prometheus-sample
+  additionalDataSources:
+   - name: Loki
   #   access: proxy
-  #   basicAuth: true
+     basicAuth: false
   #   basicAuthPassword: pass
   #   basicAuthUser: daco
-  #   editable: false
+     editable: true
   #   jsonData:
   #       tlsSkipVerify: true
   #   orgId: 1
-  #   type: prometheus
-  #   url: https://{{ printf "%s-prometheus.svc" .Release.Name }}:9090
+     type: loki
+     url: http://loki-gateway.logging.svc.cluster.local:80
   #   version: 1
 
   # Flag to mark provisioned data sources for deletion if they are no longer configured.
@@ -3826,7 +3826,7 @@ prometheus:
          resources:
            requests:
              storage: 10Gi
-       selector: {}
+       #selector: {}
     ## Using tmpfs volume
     ##
     #  emptyDir:

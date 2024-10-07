@@ -7,7 +7,7 @@ global:
   # -- configures cluster domain ("cluster.local" by default)
   clusterDomain: "cluster.local"
   # -- configures DNS service name
-  dnsService: "kube-dns"
+  dnsService: "coredns"
   # -- configures DNS service namespace
   dnsNamespace: "kube-system"
 # -- Overrides the chart's name
@@ -313,16 +313,15 @@ loki:
     # Loki requires a bucket for chunks and the ruler. GEL requires a third bucket for the admin API.
     # Please provide these values if you are using object storage.
     bucketNames:
-      chunks: bokhanych-loki-chunks
-      ruler: bokhanych-loki-ruler
-      admin: bokhanych-loki-admin
+      chunks: bokhanych-storage
+      ruler: bokhanych-storage
+      admin: bokhanych-storage
     type: s3
     s3:
-      #s3:
       endpoint: https://storage.yandexcloud.net
       region: ru-central1-d
-      secretAccessKey: AQVNzWcOv4FUlGcSVFPl1xLmgFE36s2fll8-Udps
-      accessKeyId: ajedcs7bv0akihjh4l2j
+      secretAccessKey: YCNgyLkgmtvcHqtatJxQDq9ASqeHyL5CEiyAnrXj
+      accessKeyId: YCAJEzslWCBhkve4zjz49UG6n
       #signatureVersion: s3v4
       s3ForcePathStyle: true
       insecure: false
