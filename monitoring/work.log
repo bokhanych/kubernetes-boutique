@@ -1,7 +1,6 @@
 # Install
 
 kubectl apply -f configmap-grafana-dashboards.yaml
-#kubectl apply -f configmap-grafana-alerts.yaml
 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
