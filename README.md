@@ -4,11 +4,10 @@
  - [x] Выбор приложения [GoogleCloudPlatform/microservices-demo]
  - [x] Присвоение меток нодам и запуск приложения только на нодах "worker"
  - [x] Изменение пространства имен приложения [onlineboutique]
+ - [x] Изменение количества реплик важных сервисов приложения [cartservice,frontend,productcatalogservice]
  - [x] Непрерывная поставка [ArgoCD]
- - [x] Изменение количества реплик важных сервисов приложения
- - [x] Мониторинг кластера с datasource и dashboards [kube-prometheus-stack]
+ - [x] Мониторинг кластера [datasource, dashboards, telegram alerts]
  - [x] Логирование кластера [grafana/loki,grafana/promtail]
- - [x] Алерты и уведомления [Telegram]
  - [ ] CI\CD пайплайн для приложения [Gitlab CI]
 
 
