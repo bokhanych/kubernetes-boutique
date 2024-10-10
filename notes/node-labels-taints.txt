@@ -1,2 +1,12 @@
 kubectl taint nodes <node_name> node-role.kubernetes.io/control-plane:NoSchedule
 kubectl label nodes <node_name> node-role.kubernetes.io/worker=worker
+
+
+```
+NAME    STATUS   ROLES           AGE   VERSION
+node1   Ready    control-plane   12d   v1.31.1
+node2   Ready    control-plane   12d   v1.31.1
+node3   Ready    worker          12d   v1.31.1
+node4   Ready    worker          12d   v1.31.1
+node5   Ready    worker          12d   v1.31.1
+```

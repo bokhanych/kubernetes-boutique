@@ -1,4 +1,8 @@
 # Install
+
+kubectl apply -f configmap-grafana-dashboards.yaml
+#kubectl apply -f configmap-grafana-alerts.yaml
+
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f monitoring/bokhanych-values.yaml --create-namespace --namespace monitoring

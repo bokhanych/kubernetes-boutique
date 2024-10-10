@@ -342,6 +342,7 @@ alertmanager:
           - alertname = "Watchdog"
     receivers:
     - name: 'null'
+
     templates:
     - '/etc/alertmanager/config/*.tmpl'
 
@@ -1105,10 +1106,6 @@ grafana:
         implementation: prometheus
 
   extraConfigmapMounts: []
-  # - name: certs-configmap
-  #   mountPath: /etc/grafana/ssl/
-  #   configMap: certs-configmap
-  #   readOnly: true
 
   deleteDatasources: []
   # - name: example-datasource
@@ -1583,7 +1580,7 @@ coreDns:
     enabled: true
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
-    interval: ""
+    interval: 10s
 
     ## SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
     ##
