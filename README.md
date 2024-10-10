@@ -8,8 +8,7 @@
  - [x] Изменение количества реплик важных сервисов приложения
  - [x] Мониторинг кластера с datasource и dashboards [kube-prometheus-stack]
  - [x] Логирование кластера [grafana/loki,grafana/promtail]
- - [ ] Алерты и уведомления [Telegram]
- Kubernetes / Compute Resources / Namespace (Pods)
+ - [x] Алерты и уведомления [Telegram]
  - [ ] CI\CD пайплайн для приложения [Gitlab CI]
 
 
