@@ -36,11 +36,11 @@ jobs:
           do
             ORIG_IMAGE="gcr.io/google-samples/microservices-demo/$IMAGE:v0.10.1"
             NEW_IMAGE="bokhanych/kubernetes-boutique:$IMAGE-$NEW_TAG"
-            LATEST_IMAGE="bokhanych/kubernetes-boutique:$IMAGE-latest"
+            LATEST_IMAGE="bokhanych/kubernetes-boutique:$IMAGE:latest"
             
             docker pull $ORIG_IMAGE
             docker tag $ORIG_IMAGE $NEW_IMAGE
             docker tag $ORIG_IMAGE $LATEST_IMAGE
             docker push $NEW_IMAGE
-                  docker push $LATEST_IMAGE
-                done
+            docker push $LATEST_IMAGE
+          done
