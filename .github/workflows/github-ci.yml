@@ -1,0 +1,60 @@
+name: Get the latest images for application
+on:
+  workflow_dispatch:
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:   
+
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_LOGIN }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
+      - name: Change version
+        id: version
+        run: |
+          NEW_VERSION="0.${{ github.run_number }}.0"
+          echo "::set-output name=new_version::$NEW_VERSION"
+      
+      - name: Pull, Tag and Push Docker images
+        run: |
+          IMAGES=(
+            "currencyservice"
+            "loadgenerator"
+            "productcatalogservice"
+            "checkoutservice"
+            "shippingservice"
+            "cartservice"
+            "emailservice"
+            "paymentservice"
+            "frontend"
+            "recommendationservice"
+            "adservice"
+          )
+          NEW_TAG="${{ steps.version.outputs.new_version }}"
+          for IMAGE in "${IMAGES[@]}"
+          do
+            ORIG_IMAGE="gcr.io/google-samples/microservices-demo/$IMAGE:v0.10.1"
+            NEW_IMAGE="bokhanych/kubernetes-boutique:$IMAGE-$NEW_TAG"
+            
+            docker pull $ORIG_IMAGE
+            docker tag $ORIG_IMAGE $NEW_IMAGE
+            docker push $NEW_IMAGE
+          done
+
+      - name: Update Kubernetes manifests
+        run: |
+          NEW_TAG="${{ steps.version.outputs.new_version }}"
+          sed -i "s|bokhanych/kubernetes-boutique:currencyservice-.*|bokhanych/kubernetes-boutique:currencyservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:loadgenerator-.*|bokhanych/kubernetes-boutique:loadgenerator-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:productcatalogservice-.*|bokhanych/kubernetes-boutique:productcatalogservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:checkoutservice-.*|bokhanych/kubernetes-boutique:checkoutservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:shippingservice-.*|bokhanych/kubernetes-boutique:shippingservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:cartservice-.*|bokhanych/kubernetes-boutique:cartservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:emailservice-.*|bokhanych/kubernetes-boutique:emailservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:paymentservice-.*|bokhanych/kubernetes-boutique:paymentservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:frontend-.*|bokhanych/kubernetes-boutique:frontend-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:recommendationservice-.*|bokhanych/kubernetes-boutique:recommendationservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:adservice-.*|bokhanych/kubernetes-boutique:adservice-$NEW_TAG|" application/boutique-app.yaml
