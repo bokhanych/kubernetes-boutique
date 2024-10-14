@@ -14,7 +14,9 @@ jobs:
       - name: Calculate new version
         id: version
         run: |
-          echo "::set-output name=new_version::$(git describe --tags --abbrev=0 | sed 's/v//; s/\.0$//; s/\([0-9]*\.[0-9]*\)\.[0-9]*/echo \1+0.1 | bc/' | xargs printf "v%.1f")"
+          LATEST_TAG=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          NEW_VERSION=$(echo $LATEST_TAG | awk -F. '{print $1"."$2"."$3+1}')
+          echo "::set-output name=new_version::$NEW_VERSION"
       
       - name: Pull, Tag and Push Docker images
         run: |
