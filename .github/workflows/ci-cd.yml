@@ -16,7 +16,7 @@ jobs:
         run: |
           echo "::set-output name=new_version::$(git describe --tags --abbrev=0 | sed 's/v//; s/\.0$//; s/\([0-9]*\.[0-9]*\)\.[0-9]*/echo \1+0.1 | bc/' | xargs printf "v%.1f")"
       
-      - name: Pull, Tag and Push Docker images
+- name: Pull, Tag and Push Docker images
         run: |
           IMAGES=(
             "currencyservice"
@@ -36,11 +36,8 @@ jobs:
           do
             ORIG_IMAGE="gcr.io/google-samples/microservices-demo/$IMAGE:v0.10.1"
             NEW_IMAGE="bokhanych/kubernetes-boutique:$IMAGE-$NEW_TAG"
-            LATEST_IMAGE="bokhanych/kubernetes-boutique:$IMAGE:latest"
             
             docker pull $ORIG_IMAGE
             docker tag $ORIG_IMAGE $NEW_IMAGE
-            docker tag $ORIG_IMAGE $LATEST_IMAGE
             docker push $NEW_IMAGE
-            docker push $LATEST_IMAGE
           done
