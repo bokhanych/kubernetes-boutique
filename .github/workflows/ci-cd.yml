@@ -24,6 +24,7 @@ jobs:
         run: |
           IMAGES=(
             "currencyservice"
+            "loadgenerator"
             "productcatalogservice"
             "checkoutservice"
             "shippingservice"
@@ -37,7 +38,7 @@ jobs:
           NEW_TAG="${{ steps.version.outputs.new_version }}"
           for IMAGE in "${IMAGES[@]}"
           do
-            ORIG_IMAGE="gcr.io/google-samples/microservices-demo/$IMAGE:latest"
+            ORIG_IMAGE="gcr.io/google-samples/microservices-demo/$IMAGE:v0.10.1"
             NEW_IMAGE="ghcr.io/${{ github.repository_owner }}/$IMAGE:$NEW_TAG"
             LATEST_IMAGE="ghcr.io/${{ github.repository_owner }}/$IMAGE:latest"
             docker pull $ORIG_IMAGE
