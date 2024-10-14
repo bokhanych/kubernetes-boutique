@@ -53,22 +53,22 @@ jobs:
       - name: Update Kubernetes manifests
         run: |
           NEW_TAG="${{ steps.version.outputs.new_version }}"
-          sed -i "s|bokhanych/kubernetes-boutique:currencyservice-.*|bokhanych/kubernetes-boutique:currencyservice-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:loadgenerator-.*|bokhanych/kubernetes-boutique:loadgenerator-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:productcatalogservice-.*|bokhanych/kubernetes-boutique:productcatalogservice-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:checkoutservice-.*|bokhanych/kubernetes-boutique:checkoutservice-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:shippingservice-.*|bokhanych/kubernetes-boutique:shippingservice-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:cartservice-.*|bokhanych/kubernetes-boutique:cartservice-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:emailservice-.*|bokhanych/kubernetes-boutique:emailservice-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:paymentservice-.*|bokhanych/kubernetes-boutique:paymentservice-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:frontend-.*|bokhanych/kubernetes-boutique:frontend-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:recommendationservice-.*|bokhanych/kubernetes-boutique:recommendationservice-$NEW_TAG|" application/boutique-app.yaml
-          sed -i "s|bokhanych/kubernetes-boutique:adservice-.*|bokhanych/kubernetes-boutique:adservice-$NEW_TAG|" application/boutique-app.yaml
+          sed -i "s|bokhanych/kubernetes-boutique:currencyservice-.*|bokhanych/kubernetes-boutique:currencyservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:loadgenerator-.*|bokhanych/kubernetes-boutique:loadgenerator-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:productcatalogservice-.*|bokhanych/kubernetes-boutique:productcatalogservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:checkoutservice-.*|bokhanych/kubernetes-boutique:checkoutservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:shippingservice-.*|bokhanych/kubernetes-boutique:shippingservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:cartservice-.*|bokhanych/kubernetes-boutique:cartservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:emailservice-.*|bokhanych/kubernetes-boutique:emailservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:paymentservice-.*|bokhanych/kubernetes-boutique:paymentservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:frontend-.*|bokhanych/kubernetes-boutique:frontend-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:recommendationservice-.*|bokhanych/kubernetes-boutique:recommendationservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
+          sed -i "s|bokhanych/kubernetes-boutique:adservice-.*|bokhanych/kubernetes-boutique:adservice-$NEW_TAG|" "${{ github.workspace }}/application/boutique-app.yaml"
 
       - name: Commit and push if there are changes
         run: |
           git config --global user.email ${{ secrets.MY_GITHUB_USERMAIL }}
           git config --global user.name ${{ secrets.MY_GITHUB_USERNAME }}
-          git add application/boutique-app.yaml
+          git add "${{ github.workspace }}/application/boutique-app.yaml"
           git commit -m "Update image tags to ${{ github.run_number }}"
           git push  
