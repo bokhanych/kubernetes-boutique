@@ -16,7 +16,7 @@ jobs:
         run: |
           echo "::set-output name=new_version::$(git describe --tags --abbrev=0 | sed 's/v//; s/\.0$//; s/\([0-9]*\.[0-9]*\)\.[0-9]*/echo \1+0.1 | bc/' | xargs printf "v%.1f")"
       
-- name: Pull, Tag and Push Docker images
+      - name: Pull, Tag and Push Docker images
         run: |
           IMAGES=(
             "currencyservice"
