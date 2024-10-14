@@ -39,7 +39,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:currencyservice-0.13.0
+        image: bokhanych/kubernetes-boutique:currencyservice-0.3.0
         ports:
         - name: grpc
           containerPort: 7000
@@ -160,7 +160,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:loadgenerator-0.13.0
+        image: bokhanych/kubernetes-boutique:loadgenerator-0.3.0
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -222,7 +222,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:productcatalogservice-0.13.0
+        image: bokhanych/kubernetes-boutique:productcatalogservice-0.3.0
         ports:
         - containerPort: 3550
         env:
@@ -310,7 +310,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: bokhanych/kubernetes-boutique:checkoutservice-0.13.0
+          image: bokhanych/kubernetes-boutique:checkoutservice-0.3.0
           ports:
           - containerPort: 5050
           readinessProbe:
@@ -408,7 +408,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:shippingservice-0.13.0
+        image: bokhanych/kubernetes-boutique:shippingservice-0.3.0
         ports:
         - containerPort: 50051
         env:
@@ -495,7 +495,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:cartservice-0.13.0
+        image: bokhanych/kubernetes-boutique:cartservice-0.3.0
         ports:
         - containerPort: 7070
         env:
@@ -661,7 +661,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:emailservice-0.13.0
+        image: bokhanych/kubernetes-boutique:emailservice-0.3.0
         ports:
         - containerPort: 8080
         env:
@@ -748,7 +748,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:paymentservice-0.13.0
+        image: bokhanych/kubernetes-boutique:paymentservice-0.3.0
         ports:
         - containerPort: 50051
         env:
@@ -835,7 +835,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: bokhanych/kubernetes-boutique:frontend-0.13.0
+          image: bokhanych/kubernetes-boutique:frontend-0.3.0
           ports:
           - containerPort: 8080
           readinessProbe:
@@ -979,7 +979,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:recommendationservice-0.13.0
+        image: bokhanych/kubernetes-boutique:recommendationservice-0.3.0
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -1068,7 +1068,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: bokhanych/kubernetes-boutique:adservice-0.13.0
+        image: bokhanych/kubernetes-boutique:adservice-0.3.0
         ports:
         - containerPort: 9555
         env:
