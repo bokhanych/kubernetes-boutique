@@ -14,8 +14,7 @@ jobs:
       - name: Calculate new version
         id: version
         run: |
-          LATEST_TAG=$(git describe --tags --abbrev=0 || echo "v0.0.0")
-          NEW_VERSION=$(echo $LATEST_TAG | awk -F. '{print $1"."$2"."$3+1}')
+          NEW_VERSION="0.${{ github.run_number }}.0"
           echo "::set-output name=new_version::$NEW_VERSION"
       
       - name: Pull, Tag and Push Docker images
