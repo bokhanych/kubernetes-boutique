@@ -8,6 +8,7 @@
  - [x] Мониторинг кластера [datasource, dashboards, telegram alerts]
  - [x] Логирование кластера [grafana/loki,grafana/promtail]
  - [x] CI\CD [Github Actions + ArgoCD]
+ - [x] Установка Minio object storage system
 
 
 ## Создание кластера: 
@@ -111,3 +112,25 @@ helm upgrade --install promtail grafana/promtail -f logging/promtail-values.yaml
 
 ## CI:
 CI выполняется с помощью Github Actions. Запускается на кнопку, т.к. обновления образов у приложения выходят не часто. Скачивает мой репозиторий, логинится в dockerhub (используя секреты), берет за новую версию номер задачи, берет оригинальные образы приложения, тегирует их новой версией, отправляет в мой репозиторий [dockerhub](https://hub.docker.com/repository/docker/bokhanych/kubernetes-boutique/general), после чего меняет версию в манифесте приложения и пушит обновленный манифест в мой репозиторий, где его и замечает ArgoCD и разворачивает новую версию приложения. 
+
+## Minio:
+```
+# MANUAL: https://github.com/BigKAA/youtube/tree/master/minio
+kubectl label nodes node1 minio=yes
+kubectl label nodes node2 minio=yes
+kubectl label nodes node3 minio=yes
+kubectl label nodes node4 minio=yes
+kubectl label nodes node5 minio=yes
+```
+```
+# настройка дисков\папок для каждой ноды
+mkdir /data-0
+mkdir /data-1
+chmod -R 660 /mnt/minio-storage
+chown 1001:1001 /data-* -R
+```
+```
+kubectl create ns minio
+kubectl apply -f secrets.yaml
+kubectl apply -f minio-in.yaml
+```
