@@ -115,8 +115,8 @@ CI выполняется с помощью Github Actions. Запускаетс
 
 
 ## Minio:
-# Install the MinIO Operator using Helm Charts (устанавливается на control-plane ноды)
 ```
+# Install the MinIO Operator using Helm Charts (устанавливается на control-plane ноды)
 helm repo add minio-operator https://operator.min.io
 helm search repo minio-operator
 helm pull minio-operator/operator --untar
@@ -125,8 +125,9 @@ rm -r operator
 helm install --namespace minio --create-namespace minio-operator minio-operator/operator --values minio/operator-values.yaml
 kubectl get all -n minio
 ```
-# Deploy a MinIO Tenant using Helm Charts
+
 ```
+# Deploy a MinIO Tenant using Helm Charts
 curl -sLo minio/tenant-values.yaml https://raw.githubusercontent.com/minio/operator/master/helm/tenant/values.yaml
 helm install --namespace minio --create-namespace minio-tenant minio-operator/tenant --values minio/tenant-values.yaml
 ```
