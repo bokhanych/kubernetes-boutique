@@ -113,24 +113,20 @@ helm upgrade --install promtail grafana/promtail -f logging/promtail-values.yaml
 ## CI:
 CI выполняется с помощью Github Actions. Запускается на кнопку, т.к. обновления образов у приложения выходят не часто. Скачивает мой репозиторий, логинится в dockerhub (используя секреты), берет за новую версию номер задачи, берет оригинальные образы приложения, тегирует их новой версией, отправляет в мой репозиторий [dockerhub](https://hub.docker.com/repository/docker/bokhanych/kubernetes-boutique/general), после чего меняет версию в манифесте приложения и пушит обновленный манифест в мой репозиторий, где его и замечает ArgoCD и разворачивает новую версию приложения. 
 
+
 ## Minio:
+# Install the MinIO Operator using Helm Charts (устанавливается на control-plane ноды)
 ```
-# MANUAL: https://github.com/BigKAA/youtube/tree/master/minio
-kubectl label nodes node1 minio=yes
-kubectl label nodes node2 minio=yes
-kubectl label nodes node3 minio=yes
-kubectl label nodes node4 minio=yes
-kubectl label nodes node5 minio=yes
+helm repo add minio-operator https://operator.min.io
+helm search repo minio-operator
+helm pull minio-operator/operator --untar
+mv operator/values.yaml minio/operator-values.yaml
+rm -r operator
+helm install --namespace minio --create-namespace minio-operator minio-operator/operator --values minio/operator-values.yaml
+kubectl get all -n minio
 ```
+# Deploy a MinIO Tenant using Helm Charts
 ```
-# настройка дисков\папок для каждой ноды
-mkdir /data-0
-mkdir /data-1
-chmod -R 660 /mnt/minio-storage
-chown 1001:1001 /data-* -R
-```
-```
-kubectl create ns minio
-kubectl apply -f secrets.yaml
-kubectl apply -f minio-in.yaml
+curl -sLo minio/tenant-values.yaml https://raw.githubusercontent.com/minio/operator/master/helm/tenant/values.yaml
+helm install --namespace minio --create-namespace minio-tenant minio-operator/tenant --values minio/tenant-values.yaml
 ```
