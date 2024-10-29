@@ -77,28 +77,9 @@ spec:
 
 ## Установка ArgoCD:
 Для установки приложения используется ArgoCD. Мониторит изменения в папке проекта application.
-```
-# Install Argo CD
-kubectl delete namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-
-# Change the argocd-server service type to LoadBalancer
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-
-# Get password
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
-pGgVXkh1b6snGyET
-
-# Create project
-kubectl apply -f argocd/project.yaml 
-
-# SSH keys:
-1. Github project settings - Deploy keys - Add deploy key - paste my_key.pub
-2. ArgoCD settings - Repositories - CONNECT REPO - VIA SSH - paste my_key
-
-# Create application
-kubectl apply -f argocd/application.yaml
-```
+Устанавливается с помощью gitlab runner на кнопку "Run workflow".
+![Run workflow "ArgoCD install"](argocd/screenshots/argocd_install.png)
+![Jobs](argocd/screenshots/argocd_jobs.png)
 
 ## Установка приложения:
 Состоит из двух этапов, CI и CD. CI запускается с помощью gitlab runner на кнопку "Run workflow". CD - автоматически, с помощью ArgoCD.
