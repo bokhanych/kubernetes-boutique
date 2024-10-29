@@ -11,8 +11,8 @@
  - [x] Изменение количества реплик важных сервисов приложения [cartservice,frontend,productcatalogservice]
  - [x] Мониторинг кластера [datasource, dashboards, telegram alerts]
  - [x] Логирование кластера [grafana/loki,grafana/promtail]
- - [x] CI\CD [Github Actions + ArgoCD]
- - [x] Установка Minio object storage system
+ - [x] CI [Github Actions]
+ - [x] CD [ArgoCD]
 
 ## Создание кластера: 
 ```
@@ -75,8 +75,8 @@ spec:
   replicas: 2
 ```
 
-## CD:
-Для установки приложения используем ArgoCD. Мониторит изменения в папке ***application***.
+## Установка ArgoCD:
+Для установки приложения используется ArgoCD. Мониторит изменения в папке проекта application.
 ```
 # Install Argo CD
 kubectl create namespace argocd
@@ -100,56 +100,19 @@ kubectl apply -f argocd/project.yaml
 kubectl apply -f argocd/application.yaml
 ```
 
-## Мониторинг кластера:
-Для мониторинга используем Grafana с автоматически подключаемым в виде источника данных Prometheus. 
-Мой дашборд мониторит падения и количество подов, а также шлет уведомления в телеграм при падении подов приложения. Дашборд и алерты поднимаются автоматически.
-```
-kubectl apply -f monitoring/configmap-grafana-dashboards.yaml
-kubectl apply -f monitoring/configmap-grafana-alerts.yaml
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update
-helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f monitoring/bokhanych-values.yaml --create-namespace --namespace monitoring
-# Update
-helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f monitoring/bokhanych-values.yaml --create-namespace --namespace monitoring
-# Creds: admin \ prom-operator
-```
+## Установка приложения:
+Состоит из двух этапов, CI и CD. CI запускается с помощью gitlab runner на кнопку "Run workflow". CD - автоматически, с помощью ArgoCD.
+![Run workflow "Application install"](.github/screenshots/application_install.png)
+Процесс такой: скачивает репозиторий проекта на ubuntu-latest (раннер от гита); логинится в dockerhub (используя секреты); скачивает оригинальные образы приложения; тегирует их новой версией (новая версия - номер задачи); отправляет в мой репозиторий [dockerhub](https://hub.docker.com/repository/docker/bokhanych/kubernetes-boutique/general); после чего меняет версию образов приложения в манифесте application/boutique-app.yaml и пушит обновленный манифест в мой репозиторий, где его и замечает ArgoCD и разворачивает новую версию приложения. 
 
-## Логирование кластера:
-Для работы с логами используем Grafana с автоматически подключаемым в виде источника данных Loki. В роли хранилища подключен бакет от яндекса.
-```
-# Manual: https://www.youtube.com/watch?v=MAKMxl_Um3s
-helm repo add grafana https://grafana.github.io/helm-charts
-helm repo update
+## Установка мониторинга кластера:
+Для мониторинга используется стек Grafana + Prometheus. 
+При разворачивании чарта автоматически добавляется источник данных Prometheus, мой дашборд "bokhanych-dashboard" с подключенными алертами при падении подов приложения в Telergam группу.
+Устанавливается с помощью gitlab runner на кнопку "Run workflow".
+![Run workflow "Monitoring install"](monitoring/screenshots/monitoring_install.png) 
 
-# LOKI install
-# helm pull grafana/loki --untar
-# cp loki/values.yaml loki-values.yaml
-helm upgrade --install loki grafana/loki -f logging/loki-values.yaml --create-namespace --namespace logging
+## Установка логирование кластера:
+Для работы с логами используется стек Grafana + Loki. В роли хранилища подключен бакет от яндекса.
+Устанавливается с помощью gitlab runner на кнопку "Run workflow".
+![Run workflow "Logging install"](logging/screenshots/logging_install.png)
 
-# PROMTAIL install
-# helm pull grafana/promtail --untar
-# cp promtail/values.yaml promtail-values.yaml
-helm upgrade --install promtail grafana/promtail -f logging/promtail-values.yaml --create-namespace --namespace logging
-```
-
-## CI:
-CI выполняется с помощью Github Actions. Запускается на кнопку, т.к. обновления образов у приложения выходят не часто. Скачивает мой репозиторий, логинится в dockerhub (используя секреты), берет за новую версию номер задачи, берет оригинальные образы приложения, тегирует их новой версией, отправляет в мой репозиторий [dockerhub](https://hub.docker.com/repository/docker/bokhanych/kubernetes-boutique/general), после чего меняет версию в манифесте приложения и пушит обновленный манифест в мой репозиторий, где его и замечает ArgoCD и разворачивает новую версию приложения. 
-
-
-## Minio:
-```
-# Install the MinIO Operator using Helm Charts (устанавливается на control-plane ноды)
-helm repo add minio-operator https://operator.min.io
-helm search repo minio-operator
-helm pull minio-operator/operator --untar
-mv operator/values.yaml minio/operator-values.yaml
-rm -r operator
-helm install --namespace minio --create-namespace minio-operator minio-operator/operator --values minio/operator-values.yaml
-kubectl get all -n minio
-```
-
-```
-# Deploy a MinIO Tenant using Helm Charts
-curl -sLo minio/tenant-values.yaml https://raw.githubusercontent.com/minio/operator/master/helm/tenant/values.yaml
-helm install --namespace minio --create-namespace minio-tenant minio-operator/tenant --values minio/tenant-values.yaml
-```
