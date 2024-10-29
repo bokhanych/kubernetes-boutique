@@ -1,0 +1,19 @@
+name: Logging install
+on:
+  workflow_dispatch:
+jobs:
+  monitoring-install:
+    runs-on: node1
+    steps:
+
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install helm
+        run: |
+          helm repo add grafana https://grafana.github.io/helm-charts
+          helm repo update
+          helm upgrade --install loki grafana/loki -f logging/loki-values.yaml --create-namespace --namespace logging
+          helm upgrade --install promtail grafana/promtail -f logging/promtail-values.yaml --create-namespace --namespace logging

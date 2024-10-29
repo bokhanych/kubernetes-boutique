@@ -10,10 +10,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - name: Get nodes
-        run: kubectl get nodes
-
+          
       - name: Install helm
         run: |
           kubectl apply -f monitoring/configmap-grafana-dashboards.yaml
