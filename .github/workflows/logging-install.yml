@@ -2,7 +2,7 @@ name: Logging install
 on:
   workflow_dispatch:
 jobs:
-  monitoring-install:
+  logging-install:
     runs-on: node1
     steps:
 
