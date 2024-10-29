@@ -1,0 +1,13 @@
+name: monitoring-install
+on:
+  workflow_dispatch:
+jobs:
+  monitoring-install:
+    runs-on: node1-runner
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get nodes
+        run: kubectl get nodes
