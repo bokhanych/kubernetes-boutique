@@ -102,10 +102,10 @@ kubectl apply -f argocd/application.yaml
 
 ## Мониторинг кластера:
 Для мониторинга используем Grafana с автоматически подключаемым в виде источника данных Prometheus. 
-Мой дашборд мониторит падения и количество подов, а также шлет уведомления в телеграм при падении подов приложения. 
-Сonfigmap используется для сохранения метрик в случае переустановки чарта. 
+Мой дашборд мониторит падения и количество подов, а также шлет уведомления в телеграм при падении подов приложения. Дашборд и алерты поднимаются автоматически.
 ```
 kubectl apply -f monitoring/configmap-grafana-dashboards.yaml
+kubectl apply -f monitoring/configmap-grafana-alerts.yaml
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f monitoring/bokhanych-values.yaml --create-namespace --namespace monitoring

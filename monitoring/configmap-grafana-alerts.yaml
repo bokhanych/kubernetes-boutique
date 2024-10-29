@@ -1,0 +1,1570 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-alerts
+  namespace: monitoring
+  labels:
+    grafana_alerts: "1"
+data:
+  my-alerts.json: |
+    {
+        "apiVersion": 1,
+        "groups": [
+            {
+                "orgId": 1,
+                "name": "alerts-group",
+                "folder": "alerts",
+                "interval": "10s",
+                "rules": [
+                    {
+                        "uid": "ae2b9e6eoqy9sb",
+                        "title": "adservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"adservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 0,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 0,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "adservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "ee2b9xjm4gyrkc",
+                        "title": "cartservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"cartservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    2,
+                                                    4
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "cartservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "de2b9zw4nskxsa",
+                        "title": "checkoutservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"checkoutservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "checkoutservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "ae2ba1une3gg0b",
+                        "title": "frontend",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"frontend.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "frontend is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "ee2ba3ow75kw0d",
+                        "title": "emailservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"emailservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "emailservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "ee2ba55rls6bkf",
+                        "title": "paymentservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"paymentservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "paymentservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "ee2ba6s0r198gd",
+                        "title": "loadgenerator",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"loadgenerator.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "loadgenerator is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "ce2ba7yhpvsowc",
+                        "title": "currencyservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"currencyservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "currencyservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "be2ba9bv0mxoga",
+                        "title": "shippingservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"shippingservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "shippingservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "be2baaqsx38qoa",
+                        "title": "productcatalogservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"productcatalogservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    2,
+                                                    4
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "productcatalogservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "de2bad6ene51cb",
+                        "title": "recommendationservice",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"recommendationservice.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "recommendationservice is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    },
+                    {
+                        "uid": "ee2bafui59l34c",
+                        "title": "redis-cart",
+                        "condition": "C",
+                        "data": [
+                            {
+                                "refId": "A",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "prometheus",
+                                "model": {
+                                    "datasource": {
+                                        "type": "prometheus",
+                                        "uid": "prometheus"
+                                    },
+                                    "editorMode": "code",
+                                    "expr": "count(kube_pod_status_phase{namespace=\"onlineboutique\", pod=~\"redis-cart.*\", phase=\"Running\"})",
+                                    "instant": false,
+                                    "interval": "",
+                                    "intervalMs": 30000,
+                                    "legendFormat": "__auto",
+                                    "maxDataPoints": 43200,
+                                    "range": true,
+                                    "refId": "A"
+                                }
+                            },
+                            {
+                                "refId": "B",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [],
+                                                "type": "gt"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "B"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "A",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "reducer": "last",
+                                    "refId": "B",
+                                    "type": "reduce"
+                                }
+                            },
+                            {
+                                "refId": "C",
+                                "relativeTimeRange": {
+                                    "from": 86400,
+                                    "to": 0
+                                },
+                                "datasourceUid": "__expr__",
+                                "model": {
+                                    "conditions": [
+                                        {
+                                            "evaluator": {
+                                                "params": [
+                                                    1,
+                                                    2
+                                                ],
+                                                "type": "outside_range"
+                                            },
+                                            "operator": {
+                                                "type": "and"
+                                            },
+                                            "query": {
+                                                "params": [
+                                                    "C"
+                                                ]
+                                            },
+                                            "reducer": {
+                                                "params": [],
+                                                "type": "last"
+                                            },
+                                            "type": "query"
+                                        }
+                                    ],
+                                    "datasource": {
+                                        "type": "__expr__",
+                                        "uid": "__expr__"
+                                    },
+                                    "expression": "B",
+                                    "intervalMs": 1000,
+                                    "maxDataPoints": 43200,
+                                    "refId": "C",
+                                    "type": "threshold"
+                                }
+                            }
+                        ],
+                        "dashboardUid": "fe0940cnmeh34a",
+                        "panelId": 3,
+                        "noDataState": "Alerting",
+                        "execErrState": "Alerting",
+                        "for": "0s",
+                        "annotations": {
+                            "__dashboardUid__": "fe0940cnmeh34a",
+                            "__panelId__": "3",
+                            "summary": "redis-cart is down"
+                        },
+                        "labels": {},
+                        "isPaused": false,
+                        "notification_settings": {
+                            "receiver": "Telegram"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
