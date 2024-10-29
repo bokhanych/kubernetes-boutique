@@ -1,7 +1,11 @@
- **Проектная работа: "Инфраструктурная Managed k8s платформа для онлайн-магазина". Реализовано:**
+ **Проектная работа: "Инфраструктурная Managed k8s платформа для онлайн-магазина"**
 
+Ссылки: 
+[приложение:](https://bokhanych-demoshop.ust.inc)
+[grafana:](http://65.109.41.169) # admin/prom-operator
+
+**Реализовано:**
  - [x] Создание кластера [Hetzner Cloud with Kubespray, HCLOUD Controller Manager and Storage Driver]
- - [x] Выбор приложения [GoogleCloudPlatform/microservices-demo]
  - [x] Присвоение меток нодам и запуск приложения только на нодах "worker"
  - [x] Изменение пространства имен приложения [onlineboutique]
  - [x] Изменение количества реплик важных сервисов приложения [cartservice,frontend,productcatalogservice]
@@ -10,14 +14,30 @@
  - [x] CI\CD [Github Actions + ArgoCD]
  - [x] Установка Minio object storage system
 
-
 ## Создание кластера: 
-[Install Kubernetes in Hetzner Cloud with Terraform, Kubespray, HCLOUD Controller Manager and Storage Driver](https://www.youtube.com/watch?v=S424jkxtEf0)
+```
+# MANUAL: Install Kubernetes in Hetzner Cloud with Terraform, Kubespray, HCLOUD Controller Manager and Storage Driver: https://www.youtube.com/watch?v=S424jkxtEf0
+mkdir kube-setup && cd kube-setup
+git clone https://github.com/kubernetes-sigs/kubespray.git
+VENVDIR=kubespray-venv
+KUBESPRAYDIR=kubespray
+python3 -m venv $VENVDIR
+source $VENVDIR/bin/activate
+cd $KUBESPRAYDIR
+pip install -U -r requirements.txt
+cd ..
+mkdir -p clusters/eu-central
+declare -a IPS=(10.98.0.2 10.98.0.3 10.98.0.4 10.98.0.5 10.98.0.6)
+CONFIG_FILE=clusters/eu-central/hosts.yaml python3 kubespray/contrib/inventory_builder/inventory.py ${IPS[@]}
+pip install ruamel.yaml
+vi clusters/eu-central/hosts.yaml
+vi clusters/eu-central/cluster-config.yaml
+cd kubespray
+vi inventory/sample/group_vars/k8s_cluster/addons.yml
+ansible-playbook -i ../clusters/eu-central/hosts.yaml -e @../clusters/eu-central/cluster-config.yaml --become --become-user=root cluster.yml
+```
 
-## Выбранное приложение: 
-[GoogleCloudPlatform/microservices-demo](https://github.com/GoogleCloudPlatform/microservices-demo)
-
-## Присвоение меток нодам:
+Присвоение меток нодам:
 ```
 kubectl taint nodes <node_name> node-role.kubernetes.io/control-plane:NoSchedule
 kubectl label nodes <node_name> node-role.kubernetes.io/worker=worker
@@ -29,7 +49,7 @@ node3   Ready    worker          12d   v1.31.1
 node4   Ready    worker          12d   v1.31.1
 node5   Ready    worker          12d   v1.31.1
 ```
-## Запуск приложения только на нодах "worker":
+Запуск приложения только на нодах "worker":
 ```
     spec:
       affinity:
@@ -43,13 +63,13 @@ node5   Ready    worker          12d   v1.31.1
                 - worker
 ```
 
-## Изменение пространства имен приложения:
+Изменение пространства имен приложения:
 ```
 metadata:
   namespace: onlineboutique
 ```
 
-## Изменение количества реплик:
+Изменение количества реплик:
 ```
 spec:
   replicas: 2
@@ -81,7 +101,9 @@ kubectl apply -f argocd/application.yaml
 ```
 
 ## Мониторинг кластера:
-Для мониторинга используем Grafana с автоматически подключаемым в виде источника данных Prometheus. Мой дашборд мониторит падения и количество подов, а также шлет уведомления в телеграм при падении подов приложения. Сonfigmap используется для сохранения метрик в случае переустановки чарта. 
+Для мониторинга используем Grafana с автоматически подключаемым в виде источника данных Prometheus. 
+Мой дашборд мониторит падения и количество подов, а также шлет уведомления в телеграм при падении подов приложения. 
+Сonfigmap используется для сохранения метрик в случае переустановки чарта. 
 ```
 kubectl apply -f monitoring/configmap-grafana-dashboards.yaml
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
