@@ -25,8 +25,9 @@ jobs:
         
       - name: Install Argo CD CLI
         run: |
-          curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          chmod +x /usr/local/bin/argocd
+          curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          chmod +x argocd
+          echo "$PWD" >> $GITHUB_PATH
 
       - name: Set up ArgoCD ssh key
         run: |
@@ -43,3 +44,7 @@ jobs:
         run: |
           kubectl apply -f argocd/project.yaml 
           kubectl apply -f argocd/application.yaml
+
+      - name: Clean up
+        run: |
+          rm -f id_rsa
