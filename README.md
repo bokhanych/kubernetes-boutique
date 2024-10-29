@@ -1,8 +1,8 @@
  **Проектная работа: "Инфраструктурная Managed k8s платформа для онлайн-магазина"**
 
 Ссылки: 
-[приложение:](https://bokhanych-demoshop.ust.inc)
-[grafana:](http://65.109.41.169) # admin/prom-operator
+- [приложение](https://bokhanych-demoshop.ust.inc)
+- [grafana](http://65.109.41.169) # admin/prom-operator
 
 **Реализовано:**
  - [x] Создание кластера [Hetzner Cloud with Kubespray, HCLOUD Controller Manager and Storage Driver]
