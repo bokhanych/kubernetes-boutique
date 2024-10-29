@@ -1,13 +1,21 @@
-name: monitoring-install
+name: Monitoring install
 on:
   workflow_dispatch:
 jobs:
   monitoring-install:
     runs-on: node1
     steps:
+
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Get nodes
         run: kubectl get nodes
+
+      - name: Install helm
+        run: |
+          kubectl apply -f monitoring/configmap-grafana-dashboards.yaml
+          kubectl apply -f monitoring/configmap-grafana-alerts.yaml
+          helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -f monitoring/bokhanych-values.yaml --create-namespace --namespace monitoring

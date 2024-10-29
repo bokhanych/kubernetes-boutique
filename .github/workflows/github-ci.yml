@@ -1,4 +1,4 @@
-name: Get the latest images for application
+name: Application install
 on:
   workflow_dispatch:
 jobs:
