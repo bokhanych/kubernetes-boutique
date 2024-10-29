@@ -79,7 +79,7 @@ spec:
 Для установки приложения используется ArgoCD. Мониторит изменения в папке проекта application.
 ```
 # Install Argo CD
-kubectl create namespace argocd
+kubectl delete namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # Change the argocd-server service type to LoadBalancer
