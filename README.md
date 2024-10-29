@@ -110,9 +110,10 @@ kubectl apply -f argocd/application.yaml
 При разворачивании чарта автоматически добавляется источник данных Prometheus, мой дашборд "bokhanych-dashboard" с подключенными алертами при падении подов приложения в Telergam группу.
 Устанавливается с помощью gitlab runner на кнопку "Run workflow".
 ![Run workflow "Monitoring install"](monitoring/screenshots/monitoring_install.png) 
+![Jobs](monitoring/screenshots/monitoring_jobs.png)
 
-## Установка логирование кластера:
+## Установка логирования кластера:
 Для работы с логами используется стек Grafana + Loki. В роли хранилища подключен бакет от яндекса.
 Устанавливается с помощью gitlab runner на кнопку "Run workflow".
 ![Run workflow "Logging install"](logging/screenshots/logging_install.png)
-
+![Jobs](logging/screenshots/logging_jobs.png)
