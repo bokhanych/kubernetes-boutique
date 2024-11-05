@@ -123,8 +123,8 @@ kubectl apply -f testpod.yaml
 
 Смена стандартного storageclass на linstor. Сначала нужно убрать тег с текущего стандартного, затем поставить на новый стандартный storageclass:
 ```
-kubectl patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
-kubectl patch storageclass hcloud-volumes -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}
+kubectl patch storageclass hcloud-volumes -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+kubectl patch storageclass linstor -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}
 ```
 
 Установка linstor-gui [на контроллере]:
